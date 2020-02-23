@@ -18,24 +18,28 @@
     png(file="plot4.png", width = 480, height = 480, units = "px")
     date_time = paste(as.Date(as.character(datasub$Date),format="%d/%m/%Y"),datasub$Time)
     dates = strptime(date_time,"%Y-%m-%d %H:%M:%S")
-    
     par(mfrow=c(2,2),mar=c(4,4,2,1))
-    with(datasub,plot(dates,Global_active_power,type="n",xlab="",ylab ="GlobalActive Power"))
-    with(datasub,lines(dates, Global_active_power))
     
-    with(datasub,plot(dates,Voltage,type="n",xlab="datetime",ylab ="Voltage"))
-    with(datasub,lines(dates, Voltage))
+    with(datasub, {
+        plot(dates,Global_active_power,type="n",xlab="",ylab ="GlobalActive Power")
+            lines(dates, Global_active_power)
+        plot(dates,Voltage,type="n",xlab="datetime",ylab ="Voltage")
+            lines(dates, Voltage)
     
-    with(datasub,plot(dates,c(Sub_metering_1),type="n",xlab="",ylab ="Energy sub metering"))
-    with(datasub,lines(dates,c(Sub_metering_1),col="black"))
-    with(datasub,lines(dates,c(Sub_metering_2),col="red"))
-    with(datasub,lines(dates,c(Sub_metering_3),col="blue"))
+        plot(dates,c(Sub_metering_1),type="n",xlab="",ylab ="Energy sub metering")
+            lines(dates,c(Sub_metering_1),col="black")
+            lines(dates,c(Sub_metering_2),col="red")
+            lines(dates,c(Sub_metering_3),col="blue")
+    })
+    
     legend("topright",col=c("black","red","blue"),lty=1
            ,legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"))
     
-    with(datasub,plot(dates,Global_reactive_power,type="n",xlab="datetime",ylab ="Global_reactive_power"))
+    with(datasub,{
+        plot(dates,Global_reactive_power,type="n",xlab="datetime",ylab ="Global_reactive_power")
+            lines(dates, Global_reactive_power)
+            })
     axis(side=2,at=seq(0,0.5,by=0.1))
-    with(datasub,lines(dates, Global_reactive_power))
     
     dev.off()
     
